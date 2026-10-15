@@ -44,6 +44,7 @@ The token can be any string — the tap doesn't validate it.
 | `GET /` | Web UI (auto-refreshing) |
 | `GET /events.json` | Captured events as JSON (handy for test assertions) |
 | `GET /healthz` | Liveness probe |
+| `GET /static/<name>.js` `/static/<version>/<name>.js` | Empty stub for the SDK's optional scripts (surveys, exception autocapture, toolbar) |
 | `POST /reset` / `DELETE /events` | Clear the buffer |
 
 It tolerantly decodes every PostHog body encoding: raw JSON, `{batch:[…]}`,

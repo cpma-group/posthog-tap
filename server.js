@@ -330,7 +330,10 @@ const server = http.createServer(async (req, res) => {
     }
     // PostHog tries to load optional helper scripts (surveys, toolbar, …) from
     // /static/*.js. Serve an empty module so the SDK doesn't log load errors.
-    if (/^\/static\/[^/]+\.js$/.test(path)) {
+    // posthog-js 1.434+ asks for the versioned path first
+    // (/static/1.434.15/surveys.js) and only falls back to /static/surveys.js
+    // after a 404, so stub both forms.
+    if (/^\/static\/(?:[^/]+\/)?[^/]+\.js$/.test(path)) {
       res.writeHead(200, { ...CORS, "Content-Type": "application/javascript" });
       return res.end("/* posthog-tap: optional script stubbed */\n");
     }
